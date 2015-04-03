@@ -1,0 +1,57 @@
+<!--
+  ~ JBoss, Home of Professional Open Source.
+  ~ Copyright (c) 2015, Red Hat, Inc., and individual contributors
+  ~ as indicated by the @author tags. See the copyright.txt file in the
+  ~ distribution for a full listing of individual contributors.
+  ~
+  ~ This is free software; you can redistribute it and/or modify it
+  ~ under the terms of the GNU Lesser General Public License as
+  ~ published by the Free Software Foundation; either version 2.1 of
+  ~ the License, or (at your option) any later version.
+  ~
+  ~ This software is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  ~ Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public
+  ~ License along with this software; if not, write to the Free
+  ~ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  ~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+<project xmlns:unless="ant:unless"
+         name="test" default="verify">
+    <target name="verify" depends="verify-a/b"/>
+    <target name="verify-a/b">
+        <local name="verified"/>
+        <condition property="verified" else="false">
+            <or>
+                <not>
+                    <available file="${dist}/version.txt"/>
+                </not>
+                <checksum file="${dist}/version.txt" property="09b8f1020b8f951c98c6c01100b13d61"/>
+                <checksum file="${dist}/version.txt" property="aaa62d0e015b47773b76bd228251b236"/>
+                <checksum file="${dist}/version.txt" property="27b80c7ae5c142d46d985104ef13c9e4"/>
+                <checksum file="${dist}/version.txt" property="8eed017edb39fad05efdafa31702b114"/>
+                <checksum file="${dist}/version.txt" property="7eee0c0b167fcb73a6c08966bd5e5c0a"/>
+            </or>
+        </condition>
+        <echo unless:true="${verified}" message="version.txt verification failed"/>
+        <condition property="verification-failed">
+            <istrue value="${verified}"/>
+        </condition>
+        <condition property="verified" else="false">
+            <or>
+                <not>
+                    <available file="${dist}/version.txt"/>
+                </not>
+                <checksum file="${dist}/version.txt" property="09b8f1020b8f951c98c6c01100b13d61"/>
+                <checksum file="${dist}/version.txt" property="aaa62d0e015b47773b76bd228251b236"/>
+                <checksum file="${dist}/version.txt" property="27b80c7ae5c142d46d985104ef13c9e4"/>
+                <checksum file="${dist}/version.txt" property="8eed017edb39fad05efdafa31702b114"/>
+                <checksum file="${dist}/version.txt" property="7eee0c0b167fcb73a6c08966bd5e5c0a"/>
+            </or>
+        </condition>
+        <echo message="${verified}"/>
+    </target>
+</project>
